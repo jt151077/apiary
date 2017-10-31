@@ -5,6 +5,17 @@ HOST: http://polls.apiblueprint.org/
 
 Polls is a simple API allowing consumers to view polls and vote in them.
 
+## General health [/health]
+
+### Check if service healthy [GET]
+
++ Response 200 (application/json)
+
+		{
+			message: "healthy",
+			version: "0.9.025"
+		}
+
 ## Questions Collection [/questions]
 
 ### List All Questions [GET]
