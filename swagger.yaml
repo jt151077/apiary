@@ -1,0 +1,746 @@
+#Yo
+
+swagger: '2.0'
+host: prod.api.ss.telia.io
+basePath: /
+schemes:
+  - https
+info:
+  title: Self-Service API Documentation
+  version: 0.9.030
+tags: []
+paths:
+  /health:
+    get:
+      summary: Health status
+      operationId: getHealth
+      description: Returns healthy if the server is up and running
+      tags:
+        - health
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model1'
+            type: object
+          description: Successful
+  /v1/admins:
+    get:
+      summary: Gets all users with admin rights
+      operationId: getV1Admins
+      description: Returns an array of admins
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+      tags:
+        - v1
+      responses:
+        default:
+          schema:
+            type: string
+          description: Successful
+  /v1/applications:
+    get:
+      summary: Get all applications for an authenticated user
+      operationId: getV1Applications
+      description: Returns an array of applications objects
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+      tags:
+        - v1
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model4'
+            type: array
+          description: Success
+    post:
+      summary: Create a new application for an authenticated user
+      operationId: postV1Applications
+      description: Returns the new application object
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+        - in: body
+          name: body
+          schema:
+            type: object
+            $ref: '#/definitions/Model9'
+      tags:
+        - v1
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/Model10'
+            type: object
+          description: Created
+  /v1/projects:
+    get:
+      summary: Returns all projects for an authenticated user
+      operationId: getV1Projects
+      description: Returns an array of projects
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+      tags:
+        - v1
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model6'
+            type: array
+          description: Success
+    post:
+      summary: Creates a new project for an authenticated user
+      operationId: postV1Projects
+      description: Returns the new project
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+        - in: body
+          name: body
+          schema:
+            type: object
+            $ref: '#/definitions/Model11'
+      tags:
+        - v1
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model5'
+            type: object
+          description: Created
+  /v1/users:
+    get:
+      summary: Get information for authenticated user
+      operationId: getV1Users
+      description: Returns object with user information
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+      tags:
+        - v1
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model7'
+            type: object
+          description: Success
+  /v1/waitlists:
+    get:
+      summary: Get all waitlist entries
+      operationId: getV1Waitlists
+      description: Returns an array of waitlist entries
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+      tags:
+        - v1
+      responses:
+        default:
+          schema:
+            type: string
+          description: Successful
+    post:
+      summary: Adds a user to the waitlist
+      operationId: postV1Waitlists
+      description: Returns an object with the position in the waitlist
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+      tags:
+        - v1
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model12'
+            type: object
+          description: Success
+  /v1/whitelists:
+    get:
+      summary: Get list of whitelisted users
+      operationId: getV1Whitelists
+      description: Returns array of whitelisted users
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+      tags:
+        - v1
+      responses:
+        default:
+          schema:
+            type: string
+          description: Successful
+    post:
+      summary: Adds users with ID in array to whitelist
+      operationId: postV1Whitelists
+      description: Returns an array of users that have been added to the whitelist
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+      tags:
+        - v1
+      responses:
+        default:
+          schema:
+            type: string
+          description: Successful
+  '/v1/applications/{id}':
+    get:
+      summary: Get a specific application for an authenticated user
+      operationId: getV1ApplicationsId
+      description: Returns a application object
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+        - type: string
+          description: The application id
+          name: id
+          in: path
+          required: true
+      tags:
+        - v1
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model3'
+            type: object
+          description: Success
+    put:
+      summary: Update a specific application for an authenticated user
+      operationId: putV1ApplicationsId
+      description: Returns a application object
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+        - type: string
+          description: the id for the application
+          name: id
+          in: path
+          required: true
+        - in: body
+          name: body
+          schema:
+            type: object
+            $ref: '#/definitions/Model9'
+      tags:
+        - v1
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model3'
+            type: object
+          description: Success
+    delete:
+      summary: Delete a specific application for an authenticated user
+      operationId: deleteV1ApplicationsId
+      description: Returns a HTTP status
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+        - type: string
+          description: the id for the application
+          name: id
+          in: path
+          required: true
+      tags:
+        - v1
+      responses:
+        '204':
+          description: Success - No Content
+  '/v1/applications/{id}/mappings':
+    get:
+      summary: Get a mapping between application and project
+      operationId: getV1ApplicationsIdMappings
+      description: Returns a simplified application object
+      parameters:
+        - type: string
+          description: The application id
+          name: id
+          in: path
+          required: true
+      tags:
+        - v1
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model8'
+            type: object
+          description: Success
+  /v1/notifications/admins:
+    post:
+      summary: Post a notification to Slack that someone has tried to access the admin panel
+      operationId: postV1NotificationsAdmins
+      description: HTTP Status code
+      tags:
+        - v1
+      responses:
+        default:
+          schema:
+            type: string
+          description: Successful
+  /v1/users/acceptTerms:
+    post:
+      summary: Accepts terms and services for authenticated user
+      operationId: postV1UsersAcceptterms
+      description: Returns object with information about if a user has accepted T&C
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+      tags:
+        - v1
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model13'
+            type: object
+          description: Success
+  '/v1/projects/{id}':
+    put:
+      summary: Updates a project with given ID for an authenticated user
+      operationId: putV1ProjectsId
+      description: Returns the updated project
+      parameters:
+        - type: string
+          description: the id for the project
+          name: id
+          in: path
+          required: true
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+        - in: body
+          name: body
+          schema:
+            type: object
+            $ref: '#/definitions/Model11'
+      tags:
+        - v1
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model5'
+            type: object
+          description: Success
+    delete:
+      summary: Deletes a specific project for an authenticated user
+      operationId: deleteV1ProjectsId
+      description: Returns a HTTP Status code
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+        - type: string
+          description: the id for the project
+          name: id
+          in: path
+          required: true
+      tags:
+        - v1
+      responses:
+        '204':
+          description: Success - No Content
+  '/v1/applications/{id}/secrets':
+    put:
+      summary: Re-generate a specific applications secret key
+      operationId: putV1ApplicationsIdSecrets
+      description: Returns a HTTP status
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+        - type: string
+          description: the id for the application
+          name: id
+          in: path
+          required: true
+      tags:
+        - v1
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model14'
+            type: object
+          description: Success
+  '/v1/admins/{id}':
+    delete:
+      summary: Remove admin privileges for a user
+      operationId: deleteV1AdminsId
+      description: Returns a HTTP status
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+        - type: string
+          description: the id for the application
+          name: id
+          in: path
+          required: true
+      tags:
+        - v1
+      responses:
+        default:
+          schema:
+            type: string
+          description: Successful
+  '/v1/whitelists/{id}':
+    delete:
+      summary: Removes an entry from a whitelist
+      operationId: deleteV1WhitelistsId
+      description: Returns 204 with no content
+      parameters:
+        - type: string
+          description: 'Access token, must be prefixed with "Bearer"'
+          name: authorization
+          in: header
+          required: true
+        - type: string
+          description: the id for the application
+          name: id
+          in: path
+          required: true
+      tags:
+        - v1
+      responses:
+        default:
+          schema:
+            type: string
+          description: Successful
+definitions:
+  Model1:
+    type: object
+    properties:
+      message:
+        type: string
+      version:
+        type: string
+    required:
+      - message
+      - version
+  redirectUris:
+    type: array
+    example:
+      - 'https://example.com/auth/callback'
+    items:
+      type: string
+  Model2:
+    type: object
+    properties:
+      name:
+        type: string
+        example: email
+      required:
+        type: boolean
+        example: true
+    required:
+      - name
+      - required
+  dataTypes:
+    type: array
+    items:
+      $ref: '#/definitions/Model2'
+      type: object
+  Model3:
+    type: object
+    properties:
+      id:
+        type: string
+        example: 6fdf95dc-b59d-4a6c-9407-56059f01074e
+        x-format:
+          guid:
+            version:
+              - uuidv4
+      name:
+        type: string
+        example: My application
+      createdDate:
+        type: string
+        example: '2017-04-27T11:04:55.534Z'
+        x-format:
+          isoDate: true
+      createdBy:
+        type: string
+        example: 6fdf95dc-b59d-4a6c-9407-56059f01074e
+      projectId:
+        type: string
+        example: 4ba585e8-c636-4530-b6be-ae1a53fdace8
+        x-format:
+          guid:
+            version:
+              - uuidv4
+      type:
+        type: string
+        example: WEB_BROWSER
+        enum:
+          - WEB_BROWSER
+          - WEB_SERVER
+          - IOS
+          - ANDROID
+      redirectUris:
+        $ref: '#/definitions/redirectUris'
+        type: array
+      dataTypes:
+        $ref: '#/definitions/dataTypes'
+        type: array
+    required:
+      - id
+      - name
+      - createdDate
+      - createdBy
+      - projectId
+      - type
+  Model4:
+    type: array
+    items:
+      $ref: '#/definitions/Model3'
+      type: object
+  Model5:
+    type: object
+    properties:
+      id:
+        type: string
+        example: 4ba585e8-c636-4530-b6be-ae1a53fdace8
+        x-format:
+          guid:
+            version:
+              - uuidv4
+      name:
+        type: string
+        example: My Project
+      createdBy:
+        type: string
+        example: 6fdf95dc-b59d-4a6c-9407-56059f01074e
+      createdDate:
+        type: string
+        example: '2017-04-27T11:04:55.534Z'
+        x-format:
+          isoDate: true
+      salt:
+        type: string
+        example: 355d7b5e-ec8b-4731-9358-fc943d42aa77
+        x-format:
+          guid:
+            version:
+              - uuidv4
+    required:
+      - id
+      - name
+      - createdBy
+      - createdDate
+      - salt
+  Model6:
+    type: array
+    items:
+      $ref: '#/definitions/Model5'
+      type: object
+  Model7:
+    type: object
+    properties:
+      id:
+        type: string
+        example: 4ba585e8-c636-4530-b6be-ae1a53fdace8
+        x-format:
+          guid:
+            version:
+              - uuidv4
+      isWhitelisted:
+        type: boolean
+        example: true
+      acceptedTerms:
+        type: boolean
+        example: true
+      hasRegisteredApplication:
+        type: boolean
+        example: true
+      termsVersionAccepted:
+        type: string
+        example: 0.0.1
+    required:
+      - id
+      - isWhitelisted
+      - acceptedTerms
+      - hasRegisteredApplication
+      - termsVersionAccepted
+  Model8:
+    type: object
+    properties:
+      id:
+        type: string
+        example: 6fdf95dc-b59d-4a6c-9407-56059f01074e
+        x-format:
+          guid:
+            version:
+              - uuidv4
+      projectId:
+        type: string
+        example: 4ba585e8-c636-4530-b6be-ae1a53fdace8
+        x-format:
+          guid:
+            version:
+              - uuidv4
+      idp:
+        type: string
+        example: tdx
+    required:
+      - id
+      - projectId
+      - idp
+  Model9:
+    type: object
+    properties:
+      name:
+        type: string
+        example: My application
+      projectId:
+        type: string
+        example: 4ba585e8-c636-4530-b6be-ae1a53fdace8
+      type:
+        type: string
+        example: WEB_BROWSER
+      redirectUris:
+        $ref: '#/definitions/redirectUris'
+        type: array
+      dataTypes:
+        $ref: '#/definitions/dataTypes'
+        type: array
+    required:
+      - name
+      - projectId
+      - type
+  Model10:
+    type: object
+    properties:
+      id:
+        type: string
+        example: 6fdf95dc-b59d-4a6c-9407-56059f01074e
+        x-format:
+          guid:
+            version:
+              - uuidv4
+      name:
+        type: string
+        example: My application
+      createdDate:
+        type: string
+        example: '2017-04-27T11:04:55.534Z'
+        x-format:
+          isoDate: true
+      createdBy:
+        type: string
+        example: 6fdf95dc-b59d-4a6c-9407-56059f01074e
+      projectId:
+        type: string
+        example: 4ba585e8-c636-4530-b6be-ae1a53fdace8
+        x-format:
+          guid:
+            version:
+              - uuidv4
+      type:
+        type: string
+        example: WEB_BROWSER
+        enum:
+          - WEB_BROWSER
+          - WEB_SERVER
+          - IOS
+          - ANDROID
+      redirectUris:
+        $ref: '#/definitions/redirectUris'
+        type: array
+      dataTypes:
+        $ref: '#/definitions/dataTypes'
+        type: array
+      secret:
+        type: string
+        example: b7e47643-1d4d-4f49-a900-35a05c27b75a
+    required:
+      - id
+      - name
+      - createdDate
+      - createdBy
+      - projectId
+      - type
+      - secret
+  Model11:
+    type: object
+    properties:
+      name:
+        type: string
+        example: My Project
+    required:
+      - name
+  Model12:
+    type: object
+    properties:
+      position:
+        type: number
+        example: 20
+      alreadyAdded:
+        type: boolean
+        example: true
+    required:
+      - position
+  Model13:
+    type: object
+    properties:
+      accepted:
+        type: boolean
+    required:
+      - accepted
+  Model14:
+    type: object
+    properties:
+      secret:
+        type: string
+        example: b7e47643-1d4d-4f49-a900-35a05c27b75a
+    required:
+      - secret
